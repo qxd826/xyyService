@@ -1,0 +1,143 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <artifactId>xyyService</artifactId>
+        <groupId>com.xyy.xyyService</groupId>
+        <version>1.0</version>
+        <relativePath>..</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>xyy.web</artifactId>
+    <packaging>war</packaging>
+
+    <build>
+        <finalName>xyyService</finalName>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+
+                </configuration>
+            </plugin>
+            <!-- tomcat插件 -->
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <path>/xyyService</path>
+                    <server>localhost</server>
+                    <uriEncoding>UTF-8</uriEncoding>
+                    <port>8080</port>
+                </configuration>
+            </plugin>
+            <!-- autoconfig插件 扫描META-INF/autoconf/-->
+            <plugin>
+                <groupId>com.alibaba.citrus.tool</groupId>
+                <artifactId>autoconfig-maven-plugin</artifactId>
+                <version>1.2</version>
+                <configuration>
+                    <!-- 要进行AutoConfig的目标文件，默认为${project.artifact.file}。 <dest>${project.artifact.file}</dest> -->
+                    <!-- 配置后，是否展开目标文件，默认为false，不展开。 <exploding>true</exploding> -->
+                    <!-- 展开到指定目录，默认为${project.build.directory}/${project.build.finalName}。
+                        <explodedDirectory> ${project.build.directory}/${project.build.finalName}
+                        </explodedDirectory> -->
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>autoconfig</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <artifactId>xyy.biz</artifactId>
+            <groupId>com.xyy.xyyService</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>xyy.common</artifactId>
+            <groupId>com.xyy.xyyService</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>xyy.dal</artifactId>
+            <groupId>com.xyy.xyyService</groupId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-commons</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.servicemix.bundles</groupId>
+            <artifactId>org.apache.servicemix.bundles.commons-dbcp</artifactId>
+        </dependency>
+        <!--myBatis-->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+        </dependency>
+        <!--JDBC-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+        </dependency>
+    </dependencies>
+</project>
