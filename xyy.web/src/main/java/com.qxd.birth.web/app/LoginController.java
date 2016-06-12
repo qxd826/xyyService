@@ -19,9 +19,4 @@ public class LoginController {
     public Result login() {
         return Result.wrapSuccessfulResult("true loginIn");
     }
-
-    @RequestMapping("/loginOut")
-    public String loginOut() {
-        return "index";
-    }
 }

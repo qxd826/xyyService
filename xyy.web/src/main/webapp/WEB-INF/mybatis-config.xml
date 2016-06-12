@@ -30,27 +30,4 @@
         <property name="annotationClass" value="com.qxd.birth.dal.dao.common.MyBatisRepository"/>
     </bean>
 
-    <tx:annotation-driven transaction-manager="transactionManagerSlave"/>
-
-    <bean id="transactionManagerSlave" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSourceSlave"/>
-        <qualifier value="transactionSlave"/>
-    </bean>
-
-    <!-- MyBatis配置 -->
-    <bean id="sqlSessionFactorySlave" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSourceSlave"/>
-        <!-- 自动扫描entity目录, 省掉Configuration.xml里的手工配置 -->
-        <property name="typeAliasesPackage" value="com.qxd.birth.dal.entity.slave"/>
-        <!-- 显式指定Mapper文件位置 -->
-        <property name="mapperLocations" value="classpath:/slave/**/*.xml"/>
-    </bean>
-
-    <!-- 扫描basePackage下所有以@MyBatisRepository标识的 接口 -->
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactorySlave"/>
-        <property name="basePackage" value="com.qxd.birth.dal.dao.slave"/>
-        <property name="annotationClass" value="com.qxd.birth.dal.dao.common.MyBatisRepository"/>
-    </bean>
-
 </beans>
