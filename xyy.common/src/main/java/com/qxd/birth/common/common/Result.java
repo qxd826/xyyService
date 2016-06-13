@@ -37,11 +37,11 @@ public class Result<T> {
         this.message = message;
     }
 
-    public String getErrorMsg() {
+    public String getMessage() {
         return message;
     }
 
-    public void setErrorMsg(String message) {
+    public void setMessage(String message) {
         this.message = message;
     }
 

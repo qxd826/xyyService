@@ -51,6 +51,12 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public Result addUser(User user) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("account", user.getAccount());
+        List<User> userList = userDao.select(param);
+        if(!CollectionUtils.isEmpty(userList)){
+            return Result.wrapErrorResult("", "该账户已存在");
+        }
         if (userDao.insert(user) < 1) {
             return Result.wrapErrorResult("", "添加用户失败");
         }
