@@ -32,4 +32,15 @@ public interface UserService {
      * @return
      */
     public Result isHasAdmin();
+
+
+    /**
+     * 用户登录
+     *
+     * @param account
+     * @param password
+     *
+     * @return
+     */
+    public Result login(String account, String password);
 }
