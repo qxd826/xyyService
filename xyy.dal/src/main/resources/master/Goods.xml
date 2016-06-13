@@ -55,7 +55,7 @@
     <!-- 查询总数 -->
     <select id = "selectCount" resultType = "java.lang.Integer">
         select count(id)
-        from legend_goods
+        from xyy_goods
         <include refid = "BaseWhereClause" />
     </select>
 
@@ -63,7 +63,7 @@
     <select id = "select" resultMap = "BaseResultMap">
         select
         <include refid = "BaseColumnList" />
-        from legend_goods
+        from xyy_goods
         <include refid = "BaseWhereClause" />
         <include refid = "COMMON.ORDER_BY" />
         <include refid = "COMMON.LIMIT" />
@@ -73,7 +73,7 @@
     <select id = "selectById" resultMap = "BaseResultMap">
         select
         <include refid = "BaseColumnList" />
-        from legend_goods
+        from xyy_goods
         where id = #{id} and is_deleted = 'N'
     </select>
 
@@ -81,7 +81,7 @@
     <select id = "selectByIds" resultMap = "BaseResultMap">
         select
         <include refid = "BaseColumnList" />
-        from legend_goods
+        from xyy_goods
         where id in
         (
         <foreach collection = "array" index = "index" item = "tag" separator = ",">
@@ -93,7 +93,7 @@
 
     <!-- 根据IDS批量删除 -->
     <update id = "deleteByIds">
-        update legend_goods
+        update xyy_goods
         set is_deleted='Y'
         where id in
         (
@@ -105,21 +105,21 @@
 
     <!-- 根据ID删除 -->
     <update id = "deleteById">
-        update legend_goods
+        update xyy_goods
         set is_deleted='Y'
         where id=#{id}
     </update>
 
     <!-- 删除 -->
     <delete id = "delete">
-        update legend_goods
+        update xyy_goods
         set is_deleted='Y'
         <include refid = "BaseWhereClause" />
     </delete>
 
     <!-- 添加   -->
     <insert id = "insert" useGeneratedKeys = "true" keyProperty = "id">
-        insert into legend_goods (
+        insert into xyy_goods (
         <trim suffix="" suffixOverrides=",">
             <include refid = "COMMON.BASE_INSERT_COLUMN" />
             <if test = "goodsName != null">
@@ -151,19 +151,17 @@
 
     <!-- 通过ID更新 -->
     <update id = "updateById">
-        update legend_goods
+        update xyy_goods
         <include refid = "BaseUpdateSet" />
         where id = #{id}
     </update>
 
     <insert id="batchInsert" parameterType="java.util.List">
-        insert into legend_goods (
+        insert into xyy_goods (
         <trim suffix="" suffixOverrides=",">
             is_deleted,
-            gmt_create,
             creator,
             gmt_modified,
-            modifier,
             goods_name,
             goods_code,
             goods_num,

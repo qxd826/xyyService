@@ -65,7 +65,7 @@
     <select id = "selectById" resultMap = "BaseResultMap">
         select
         <include refid = "BaseColumnList" />
-        from legend_supply
+        from xyy_supply
         where id = #{id} and is_deleted = 'N'
     </select>
 
@@ -73,7 +73,7 @@
     <select id = "selectByIds" resultMap = "BaseResultMap">
         select
         <include refid = "BaseColumnList" />
-        from legend_supply
+        from xyy_supply
         where id in
         (
         <foreach collection = "array" index = "index" item = "tag" separator = ",">
@@ -85,7 +85,7 @@
 
     <!-- 根据IDS批量删除 -->
     <update id = "deleteByIds">
-        update legend_supply
+        update xyy_supply
         set is_deleted='Y'
         where id in
         (
@@ -97,21 +97,21 @@
 
     <!-- 根据ID删除 -->
     <update id = "deleteById">
-        update legend_supply
+        update xyy_supply
         set is_deleted='Y'
         where id=#{id}
     </update>
 
     <!-- 删除 -->
     <delete id = "delete">
-        update legend_supply
+        update xyy_supply
         set is_deleted='Y'
         <include refid = "BaseWhereClause" />
     </delete>
 
     <!-- 添加   -->
     <insert id = "insert" useGeneratedKeys = "true" keyProperty = "id">
-        insert into legend_supply (
+        insert into xyy_supply (
         <trim suffix="" suffixOverrides=",">
             <include refid = "COMMON.BASE_INSERT_COLUMN" />
             <if test = "supplyName != null">
@@ -137,19 +137,17 @@
 
     <!-- 通过ID更新 -->
     <update id = "updateById">
-        update legend_supply
+        update xyy_supply
         <include refid = "BaseUpdateSet" />
         where id = #{id}
     </update>
 
     <insert id="batchInsert" parameterType="java.util.List">
-        insert into legend_supply (
+        insert into xyy_supply (
         <trim suffix="" suffixOverrides=",">
             is_deleted,
             gmt_create,
-            creator,
             gmt_modified,
-            modifier,
             supply_name,
             supply_mobile,
         </trim>
@@ -166,23 +164,11 @@
                 <if test="item.gmtCreate == null">
                     now(),
                 </if>
-                <if test="item.creator != null">
-                    #{item.creator},
-                </if>
-                <if test="item.creator == null">
-                    0,
-                </if>
                 <if test="item.gmtModified != null">
                     #{item.gmtModified},
                 </if>
                 <if test="item.gmtModified == null">
                     now(),
-                </if>
-                <if test="item.creator != null">
-                    #{item.creator},
-                </if>
-                <if test="item.creator == null">
-                    0,
                 </if>
                 <if test="item.supplyName != null">
                     #{item.supplyName},
