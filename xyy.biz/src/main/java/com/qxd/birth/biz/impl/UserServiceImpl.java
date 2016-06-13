@@ -64,6 +64,40 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * 修改用户
+     *
+     * @param user
+     *
+     * @return
+     */
+    @Override
+    public Result editUser(User user) {
+        if(userDao.updateById(user) > 0){
+            return Result.wrapSuccessfulResult("更新成功");
+        }
+        return Result.wrapErrorResult("", "更新失败");
+    }
+
+    @Override
+    public Result editPassword(User user) {
+        User userTemp = userDao.selectById(user.getId());
+        if(userTemp == null){
+            return Result.wrapSuccessfulResult("当前用户不存在");
+        }
+        if(!StringUtils.equalsIgnoreCase(user.getPassword(),userTemp.getPassword())){
+            return Result.wrapSuccessfulResult("旧密码错误");
+        }else{
+            User updateUser = new User();
+            updateUser.setId(userTemp.getId());
+            updateUser.setPassword(user.getNewPassword());
+            if(userDao.updateById(updateUser) > 0){
+                return Result.wrapSuccessfulResult("更新成功");
+            }
+            return Result.wrapErrorResult("", "更新失败");
+        }
+    }
+
+    /**
      * 判断是否有管理员
      *
      * @return

@@ -16,6 +16,8 @@ public class User extends BaseEntity implements Serializable{
     private String password;//登录密码
     private String isAdmin;//1是管理员,0是非管理员
     private String mobile;//用户电话
+
+    private String newPassword;//旧密码
 }
 
 

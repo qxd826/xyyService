@@ -27,6 +27,24 @@ public interface UserService {
     public Result addUser(User user);
 
     /**
+     * 修改用户
+     *
+     * @param user
+     *
+     * @return
+     */
+    public Result editUser(User user);
+
+    /**
+     * 修改用户
+     *
+     * @param user
+     *
+     * @return
+     */
+    public Result editPassword(User user);
+
+    /**
      * 判断是否有管理员
      *
      * @return

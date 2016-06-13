@@ -62,6 +62,38 @@ public class UserController extends BaseController {
     }
 
     /**
+     * 修改用户信息
+     *
+     * @param user
+     *
+     * @return
+     */
+    @RequestMapping (value = "/edit", method = RequestMethod.POST)
+    @ResponseBody
+    public Result editUser(@RequestBody User user) {
+        if (user == null) {
+            return Result.wrapErrorResult("", "参数错误");
+        }
+        return userService.editUser(user);
+    }
+
+    /**
+     * 修改用户密码
+     *
+     * @param user
+     *
+     * @return
+     */
+    @RequestMapping (value = "/editPassword", method = RequestMethod.POST)
+    @ResponseBody
+    public Result editPassword(@RequestBody User user) {
+        if (user == null) {
+            return Result.wrapErrorResult("", "参数错误");
+        }
+        return userService.editPassword(user);
+    }
+
+    /**
      * 判断是否有管理员
      *
      * @return
@@ -71,4 +103,6 @@ public class UserController extends BaseController {
     public Result isHasAdmin() {
         return userService.isHasAdmin();
     }
+
+
 }
