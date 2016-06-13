@@ -137,4 +137,12 @@ public class UserServiceImpl implements UserService {
         }
         return Result.wrapSuccessfulResult(user);
     }
+
+    @Override
+    public List<User> getUserList() {
+        Map<String, Object> param = new HashMap<>();
+        param.put("isDeleted", "N");
+        List<User> userList = userDao.select(param);
+        return userList;
+    }
 }

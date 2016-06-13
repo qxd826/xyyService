@@ -3,6 +3,8 @@ package com.qxd.birth.biz;
 import com.qxd.birth.common.common.Result;
 import com.qxd.birth.dal.entity.User;
 
+import java.util.List;
+
 /**
  * Created by xiangDong.qu on 16/6/13.
  */
@@ -61,4 +63,11 @@ public interface UserService {
      * @return
      */
     public Result login(String account, String password);
+
+    /**
+     * 获取用户列表
+     *
+     * @return
+     */
+    public List<User> getUserList();
 }

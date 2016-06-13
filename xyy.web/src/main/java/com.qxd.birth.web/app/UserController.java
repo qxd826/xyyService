@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 /**
  * Created by xiangDong.qu on 16/6/13.
  */
@@ -104,5 +106,18 @@ public class UserController extends BaseController {
         return userService.isHasAdmin();
     }
 
-
+    /**
+     * 判断是否有管理员
+     *
+     * @return
+     */
+    @RequestMapping (value = "/list", method = RequestMethod.GET)
+    @ResponseBody
+    public Result getUserList() {
+        List<User> userList = userService.getUserList();
+        if(null == userList){
+            return  Result.wrapErrorResult("","获取用户列表失败");
+        }
+        return Result.wrapSuccessfulResult(userList);
+    }
 }
