@@ -4,19 +4,21 @@ import com.qxd.birth.common.common.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Created by xiangDong.qu on 15/10/26.
  */
-@RequestMapping("/app/login")
+@RequestMapping ("/app/login")
 @Controller
 @Slf4j
 public class LoginController {
 
-    @RequestMapping("/loginIn")
+    @RequestMapping ("/loginIn")
     @ResponseBody
-    public Result login() {
+    public Result login(@RequestParam ("account") String account, @RequestParam ("password") String password) {
+
         return Result.wrapSuccessfulResult("true loginIn");
     }
 }

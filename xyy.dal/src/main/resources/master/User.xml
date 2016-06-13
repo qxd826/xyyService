@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.qxd.birth.dal.dao.UserDao">
+
+    <resultMap id = "BaseResultMap" type = "User" extends = "COMMON.BASE_RESULT_MAP">
+        <result column = "user_name" property = "userName" />
+        <result column = "account" property = "account" />
+        <result column = "password" property = "password" />
+        <result column = "is_admin" property = "isAdmin" />
+        <result column = "mobile" property = "mobile" />
+    </resultMap>
+
+    <sql id = "BaseColumnList">
+        <trim suffix="" suffixOverrides=",">
+            <include refid = "COMMON.BASE_COLUMN_LIST" />
+            user_name as userName,
+            account as account,
+            password as password,
+            is_admin as isAdmin,
+            mobile as mobile,
+        </trim>
+    </sql>
+
+    <sql id = "BaseWhereClause">
+        <where>
+            <trim prefixOverrides = "and">
+                <include refid = "COMMON.BASE_WHERE_CLAUSE" />
+                <if test = "userName != null">
+                    and user_name = #{userName}
+                </if>
+                <if test = "account != null">
+                    and account = #{account}
+                </if>
+                <if test = "password != null">
+                    and password = #{password}
+                </if>
+                <if test = "isAdmin != null">
+                    and is_admin = #{isAdmin}
+                </if>
+                <if test = "mobile != null">
+                    and mobile = #{mobile}
+                </if>
+            </trim>
+        </where>
+    </sql>
+
+    <sql id = "BaseUpdateSet">
+        <set>
+            <trim suffix="" suffixOverrides=",">
+                <include refid = "COMMON.BASE_UPDATE_SET" />
+                <if test = "userName != null">
+                    user_name = #{userName},
+                </if>
+                <if test = "account != null">
+                    account = #{account},
+                </if>
+                <if test = "password != null">
+                    password = #{password},
+                </if>
+                <if test = "isAdmin != null">
+                    is_admin = #{isAdmin},
+                </if>
+                <if test = "mobile != null">
+                    mobile = #{mobile},
+                </if>
+            </trim>
+        </set>
+    </sql>
+
+    <!-- 查询总数 -->
+    <select id = "selectCount" resultType = "java.lang.Integer">
+        select count(id)
+        from legend_user
+        <include refid = "BaseWhereClause" />
+    </select>
+
+    <!-- 查询 -->
+    <select id = "select" resultMap = "BaseResultMap">
+        select
+        <include refid = "BaseColumnList" />
+        from legend_user
+        <include refid = "BaseWhereClause" />
+        <include refid = "COMMON.ORDER_BY" />
+        <include refid = "COMMON.LIMIT" />
+    </select>
+
+    <!-- 根据ID查询 -->
+    <select id = "selectById" resultMap = "BaseResultMap">
+        select
+        <include refid = "BaseColumnList" />
+        from legend_user
+        where id = #{id} and is_deleted = 'N'
+    </select>
+
+    <!-- 根据IDS批量查询 -->
+    <select id = "selectByIds" resultMap = "BaseResultMap">
+        select
+        <include refid = "BaseColumnList" />
+        from legend_user
+        where id in
+        (
+        <foreach collection = "array" index = "index" item = "tag" separator = ",">
+            #{tag}
+        </foreach>
+        ) and is_deleted = 'N'
+    </select>
+
+
+    <!-- 根据IDS批量删除 -->
+    <update id = "deleteByIds">
+        update legend_user
+        set is_deleted='Y'
+        where id in
+        (
+        <foreach collection = "array" index = "index" item = "tag" separator = ",">
+            #{tag}
+        </foreach>
+        )
+    </update>
+
+    <!-- 根据ID删除 -->
+    <update id = "deleteById">
+        update legend_user
+        set is_deleted='Y'
+        where id=#{id}
+    </update>
+
+    <!-- 删除 -->
+    <delete id = "delete">
+        update legend_user
+        set is_deleted='Y'
+        <include refid = "BaseWhereClause" />
+    </delete>
+
+    <!-- 添加   -->
+    <insert id = "insert" useGeneratedKeys = "true" keyProperty = "id">
+        insert into legend_user (
+        <trim suffix="" suffixOverrides=",">
+            <include refid = "COMMON.BASE_INSERT_COLUMN" />
+            <if test = "userName != null">
+                user_name,
+            </if>
+            <if test = "account != null">
+                account,
+            </if>
+            <if test = "password != null">
+                password,
+            </if>
+            <if test = "isAdmin != null">
+                is_admin,
+            </if>
+            <if test = "mobile != null">
+                mobile,
+            </if>
+        </trim>
+        )
+        values (
+        <trim suffix="" suffixOverrides=",">
+            <include refid = "COMMON.BASE_INSERT_VALUE" />
+            <if test = "userName != null">
+                #{userName},
+            </if>
+            <if test = "account != null">
+                #{account},
+            </if>
+            <if test = "password != null">
+                #{password},
+            </if>
+            <if test = "isAdmin != null">
+                #{isAdmin},
+            </if>
+            <if test = "mobile != null">
+                #{mobile},
+            </if>
+        </trim>
+        )
+    </insert>
+
+    <!-- 通过ID更新 -->
+    <update id = "updateById">
+        update legend_user
+        <include refid = "BaseUpdateSet" />
+        where id = #{id}
+    </update>
+
+    <insert id="batchInsert" parameterType="java.util.List">
+        insert into legend_user (
+        <trim suffix="" suffixOverrides=",">
+            is_deleted,
+            gmt_create,
+            creator,
+            gmt_modified,
+            modifier,
+            user_name,
+            account,
+            password,
+            is_admin,
+            mobile,
+        </trim>
+        )
+        values
+
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            <trim suffix="" suffixOverrides=",">
+                'N',
+                <if test="item.gmtCreate != null">
+                    #{item.gmtCreate},
+                </if>
+                <if test="item.gmtCreate == null">
+                    now(),
+                </if>
+                <if test="item.gmtModified != null">
+                    #{item.gmtModified},
+                </if>
+                <if test="item.gmtModified == null">
+                    now(),
+                </if>
+                <if test="item.userName != null">
+                    #{item.userName},
+                </if>
+                <if test="item.userName == null">
+                    '',
+                </if>
+                <if test="item.account != null">
+                    #{item.account},
+                </if>
+                <if test="item.account == null">
+                    '',
+                </if>
+                <if test="item.password != null">
+                    #{item.password},
+                </if>
+                <if test="item.password == null">
+                    '',
+                </if>
+                <if test="item.isAdmin != null">
+                    #{item.isAdmin},
+                </if>
+                <if test="item.isAdmin == null">
+                    '',
+                </if>
+                <if test="item.mobile != null">
+                    #{item.mobile},
+                </if>
+                <if test="item.mobile == null">
+                    '',
+                </if>
+            </trim>
+            )
+        </foreach>
+    </insert>
+
+</mapper>

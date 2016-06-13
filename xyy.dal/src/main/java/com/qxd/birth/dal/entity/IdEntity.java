@@ -1,4 +1,4 @@
-package com.qxd.birth.dal.entity.base;
+package com.qxd.birth.dal.entity;
 
 import lombok.Data;
 

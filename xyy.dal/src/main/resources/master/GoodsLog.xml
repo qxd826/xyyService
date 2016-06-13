@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.qxd.birth.dal.dao.GoodsLogDao">
+
+    <resultMap id = "BaseResultMap" type = "GoodsLog" extends = "COMMON.BASE_RESULT_MAP">
+        <result column = "goods_name" property = "goodsName" />
+        <result column = "goods_code" property = "goodsCode" />
+        <result column = "goods_num" property = "goodsNum" />
+        <result column = "customer_id" property = "customerId" />
+        <result column = "customer_name" property = "customerName" />
+        <result column = "supply_name" property = "supplyName" />
+        <result column = "supply_id" property = "supplyId" />
+        <result column = "action_type" property = "actionType" />
+    </resultMap>
+
+    <sql id = "BaseColumnList">
+        <trim suffix="" suffixOverrides=",">
+            <include refid = "COMMON.BASE_COLUMN_LIST" />
+            goods_name as goodsName,
+            goods_code as goodsCode,
+            goods_num as goodsNum,
+            customer_id as customerId,
+            customer_name as customerName,
+            supply_name as supplyName,
+            supply_id as supplyId,
+            action_type as actionType,
+        </trim>
+    </sql>
+
+    <sql id = "BaseWhereClause">
+        <where>
+            <trim prefixOverrides = "and">
+                <include refid = "COMMON.BASE_WHERE_CLAUSE" />
+                <if test = "goodsName != null">
+                    and goods_name = #{goodsName}
+                </if>
+                <if test = "goodsCode != null">
+                    and goods_code = #{goodsCode}
+                </if>
+                <if test = "goodsNum != null">
+                    and goods_num = #{goodsNum}
+                </if>
+                <if test = "customerId != null">
+                    and customer_id = #{customerId}
+                </if>
+                <if test = "customerName != null">
+                    and customer_name = #{customerName}
+                </if>
+                <if test = "supplyName != null">
+                    and supply_name = #{supplyName}
+                </if>
+                <if test = "supplyId != null">
+                    and supply_id = #{supplyId}
+                </if>
+                <if test = "actionType != null">
+                    and action_type = #{actionType}
+                </if>
+            </trim>
+        </where>
+    </sql>
+
+    <sql id = "BaseUpdateSet">
+        <set>
+            <trim suffix="" suffixOverrides=",">
+                <include refid = "COMMON.BASE_UPDATE_SET" />
+                <if test = "goodsName != null">
+                    goods_name = #{goodsName},
+                </if>
+                <if test = "goodsCode != null">
+                    goods_code = #{goodsCode},
+                </if>
+                <if test = "goodsNum != null">
+                    goods_num = #{goodsNum},
+                </if>
+                <if test = "customerId != null">
+                    customer_id = #{customerId},
+                </if>
+                <if test = "customerName != null">
+                    customer_name = #{customerName},
+                </if>
+                <if test = "supplyName != null">
+                    supply_name = #{supplyName},
+                </if>
+                <if test = "supplyId != null">
+                    supply_id = #{supplyId},
+                </if>
+                <if test = "actionType != null">
+                    action_type = #{actionType},
+                </if>
+            </trim>
+        </set>
+    </sql>
+
+    <!-- 查询总数 -->
+    <select id = "selectCount" resultType = "java.lang.Integer">
+        select count(id)
+        from legend_goods_log
+        <include refid = "BaseWhereClause" />
+    </select>
+
+    <!-- 查询 -->
+    <select id = "select" resultMap = "BaseResultMap">
+        select
+        <include refid = "BaseColumnList" />
+        from legend_goods_log
+        <include refid = "BaseWhereClause" />
+        <include refid = "COMMON.ORDER_BY" />
+        <include refid = "COMMON.LIMIT" />
+    </select>
+
+    <!-- 根据ID查询 -->
+    <select id = "selectById" resultMap = "BaseResultMap">
+        select
+        <include refid = "BaseColumnList" />
+        from legend_goods_log
+        where id = #{id} and is_deleted = 'N'
+    </select>
+
+    <!-- 根据IDS批量查询 -->
+    <select id = "selectByIds" resultMap = "BaseResultMap">
+        select
+        <include refid = "BaseColumnList" />
+        from legend_goods_log
+        where id in
+        (
+        <foreach collection = "array" index = "index" item = "tag" separator = ",">
+            #{tag}
+        </foreach>
+        ) and is_deleted = 'N'
+    </select>
+
+
+    <!-- 根据IDS批量删除 -->
+    <update id = "deleteByIds">
+        update legend_goods_log
+        set is_deleted='Y'
+        where id in
+        (
+        <foreach collection = "array" index = "index" item = "tag" separator = ",">
+            #{tag}
+        </foreach>
+        )
+    </update>
+
+    <!-- 根据ID删除 -->
+    <update id = "deleteById">
+        update legend_goods_log
+        set is_deleted='Y'
+        where id=#{id}
+    </update>
+
+    <!-- 删除 -->
+    <delete id = "delete">
+        update legend_goods_log
+        set is_deleted='Y'
+        <include refid = "BaseWhereClause" />
+    </delete>
+
+    <!-- 添加   -->
+    <insert id = "insert" useGeneratedKeys = "true" keyProperty = "id">
+        insert into legend_goods_log (
+        <trim suffix="" suffixOverrides=",">
+            <include refid = "COMMON.BASE_INSERT_COLUMN" />
+            <if test = "goodsName != null">
+                goods_name,
+            </if>
+            <if test = "goodsCode != null">
+                goods_code,
+            </if>
+            <if test = "goodsNum != null">
+                goods_num,
+            </if>
+            <if test = "customerId != null">
+                customer_id,
+            </if>
+            <if test = "customerName != null">
+                customer_name,
+            </if>
+            <if test = "supplyName != null">
+                supply_name,
+            </if>
+            <if test = "supplyId != null">
+                supply_id,
+            </if>
+            <if test = "actionType != null">
+                action_type,
+            </if>
+        </trim>
+        )
+        values (
+        <trim suffix="" suffixOverrides=",">
+            <include refid = "COMMON.BASE_INSERT_VALUE" />
+            <if test = "goodsName != null">
+                #{goodsName},
+            </if>
+            <if test = "goodsCode != null">
+                #{goodsCode},
+            </if>
+            <if test = "goodsNum != null">
+                #{goodsNum},
+            </if>
+            <if test = "customerId != null">
+                #{customerId},
+            </if>
+            <if test = "customerName != null">
+                #{customerName},
+            </if>
+            <if test = "supplyName != null">
+                #{supplyName},
+            </if>
+            <if test = "supplyId != null">
+                #{supplyId},
+            </if>
+            <if test = "actionType != null">
+                #{actionType},
+            </if>
+        </trim>
+        )
+    </insert>
+
+    <!-- 通过ID更新 -->
+    <update id = "updateById">
+        update legend_goods_log
+        <include refid = "BaseUpdateSet" />
+        where id = #{id}
+    </update>
+
+    <insert id="batchInsert" parameterType="java.util.List">
+        insert into legend_goods_log (
+        <trim suffix="" suffixOverrides=",">
+            is_deleted,
+            gmt_create,
+            creator,
+            gmt_modified,
+            modifier,
+            goods_name,
+            goods_code,
+            goods_num,
+            customer_id,
+            customer_name,
+            supply_name,
+            supply_id,
+            action_type,
+        </trim>
+        )
+        values
+
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            <trim suffix="" suffixOverrides=",">
+                'N',
+                <if test="item.gmtCreate != null">
+                    #{item.gmtCreate},
+                </if>
+                <if test="item.gmtCreate == null">
+                    now(),
+                </if>
+                <if test="item.gmtModified != null">
+                    #{item.gmtModified},
+                </if>
+                <if test="item.gmtModified == null">
+                    now(),
+                </if>
+                <if test="item.goodsName != null">
+                    #{item.goodsName},
+                </if>
+                <if test="item.goodsName == null">
+                    '',
+                </if>
+                <if test="item.goodsCode != null">
+                    #{item.goodsCode},
+                </if>
+                <if test="item.goodsCode == null">
+                    '',
+                </if>
+                <if test="item.goodsNum != null">
+                    #{item.goodsNum},
+                </if>
+                <if test="item.goodsNum == null">
+                    0 ,
+                </if>
+                <if test="item.customerId != null">
+                    #{item.customerId},
+                </if>
+                <if test="item.customerId == null">
+                    0 ,
+                </if>
+                <if test="item.customerName != null">
+                    #{item.customerName},
+                </if>
+                <if test="item.customerName == null">
+                    '',
+                </if>
+                <if test="item.supplyName != null">
+                    #{item.supplyName},
+                </if>
+                <if test="item.supplyName == null">
+                    '',
+                </if>
+                <if test="item.supplyId != null">
+                    #{item.supplyId},
+                </if>
+                <if test="item.supplyId == null">
+                    0 ,
+                </if>
+                <if test="item.actionType != null">
+                    #{item.actionType},
+                </if>
+                <if test="item.actionType == null">
+                    '',
+                </if>
+            </trim>
+            )
+        </foreach>
+    </insert>
+
+</mapper>

@@ -1,11 +1,11 @@
-package com.qxd.birth.dal.dao.master.user;
+package com.qxd.birth.dal.dao;
 
 import com.qxd.birth.dal.dao.base.BaseDao;
 import com.qxd.birth.dal.dao.common.MyBatisRepository;
-import com.qxd.birth.dal.entity.master.user.User;
+import com.qxd.birth.dal.entity.User;
 
 /**
- * Created by xiangDong.qu on 16/2/17.
+ * Created by xiangDong.qu on 16/6/13.
  */
 @MyBatisRepository
 public interface UserDao extends BaseDao<User> {
