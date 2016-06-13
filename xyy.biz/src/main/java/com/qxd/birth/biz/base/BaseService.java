@@ -1,7 +1,7 @@
 package com.qxd.birth.biz.base;
 
 import com.qxd.birth.dal.dao.base.BaseDao;
-import com.qxd.birth.dal.entity.base.IdEntity;
+import com.qxd.birth.dal.entity.IdEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -18,8 +18,6 @@ public interface BaseService {
     public <T extends IdEntity> Page<T> getPage(BaseDao<T> baseDao, Pageable pageable, Map<String, Object> parameters);
 
     public <T extends IdEntity> T getById(BaseDao<T> baseDao, Object id);
-
-    public <T extends IdEntity> boolean save(BaseDao<T> baseDao, T entity);
 
     public <T extends IdEntity> boolean deleteById(BaseDao<T> baseDao, Object id);
 

@@ -3,8 +3,8 @@ package com.qxd.birth.biz.base.impl;
 import com.qxd.birth.biz.base.BaseService;
 import com.qxd.birth.biz.common.DefaultPage;
 import com.qxd.birth.dal.dao.base.BaseDao;
-import com.qxd.birth.dal.entity.base.BaseEntity;
-import com.qxd.birth.dal.entity.base.IdEntity;
+import com.qxd.birth.dal.entity.BaseEntity;
+import com.qxd.birth.dal.entity.IdEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -56,17 +56,6 @@ public abstract class BaseServiceImpl implements BaseService {
         return baseDao.selectById(id);
     }
 
-    @Override
-    public <T extends IdEntity> boolean save(BaseDao<T> baseDao, T entity) {
-        if (entity instanceof BaseEntity) {
-            ((BaseEntity) entity).setDefaultBizValue();
-        }
-        if (entity.getId() == null) {
-            return baseDao.insert(entity) > 0;
-        } else {
-            return baseDao.updateById(entity) > 0;
-        }
-    }
 
     @Override
     public <T extends IdEntity> boolean deleteById(BaseDao<T> baseDao, Object id) {
