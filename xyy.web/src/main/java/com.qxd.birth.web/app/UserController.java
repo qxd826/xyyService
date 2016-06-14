@@ -64,7 +64,7 @@ public class UserController extends BaseController {
     }
 
     /**
-     * 修改用户信息
+     * 修改用户信息 （用户姓名,电话）
      *
      * @param user
      *
@@ -107,7 +107,7 @@ public class UserController extends BaseController {
     }
 
     /**
-     * 判断是否有管理员
+     * 获取用户列表
      *
      * @return
      */
@@ -115,9 +115,23 @@ public class UserController extends BaseController {
     @ResponseBody
     public Result getUserList() {
         List<User> userList = userService.getUserList();
-        if(null == userList){
-            return  Result.wrapErrorResult("","获取用户列表失败");
+        if (null == userList) {
+            return Result.wrapErrorResult("", "获取用户列表失败");
         }
         return Result.wrapSuccessfulResult(userList);
+    }
+
+    /**
+     * 删除用户 根据用户id
+     *
+     * @param userId 用户id
+     */
+    @RequestMapping (value = "/del", method = RequestMethod.GET)
+    @ResponseBody
+    public Result delUser(@RequestParam ("userId") Long userId) {
+        if (userId == null || userId < 1) {
+            return Result.wrapErrorResult("", "用户id错误");
+        }
+        return userService.delUser(userId);
     }
 }

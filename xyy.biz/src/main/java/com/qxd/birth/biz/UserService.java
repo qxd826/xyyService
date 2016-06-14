@@ -70,4 +70,12 @@ public interface UserService {
      * @return
      */
     public List<User> getUserList();
+
+    /**
+     * 删除用户
+     * @param userId
+     *
+     * @return
+     */
+    public Result delUser(Long userId);
 }

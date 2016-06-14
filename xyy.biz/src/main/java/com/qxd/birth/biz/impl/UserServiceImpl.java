@@ -145,4 +145,13 @@ public class UserServiceImpl implements UserService {
         List<User> userList = userDao.select(param);
         return userList;
     }
+
+    @Override
+    public Result delUser(Long userId) {
+        if(userDao.deleteById(userId) > 0){
+            return Result.wrapSuccessfulResult("删除成功");
+        }else{
+            return Result.wrapErrorResult("","删除失败");
+        }
+    }
 }
