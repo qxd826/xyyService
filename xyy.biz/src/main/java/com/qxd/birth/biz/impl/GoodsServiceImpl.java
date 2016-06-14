@@ -165,7 +165,7 @@ public class GoodsServiceImpl implements GoodsService {
             goodsLogTemp.setSupplyName(supply.getSupplyName());
         }
         if(goodsInOrOut.getType() == 1){
-            Customer customer = customerDao.selectById(goodsInOrOut.getSupplyId());
+            Customer customer = customerDao.selectById(goodsInOrOut.getCustomerId());
             if(null == customer){
                 return Result.wrapErrorResult("", "获取客户信息错误");
             }
