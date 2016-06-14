@@ -103,7 +103,7 @@
     <select id = "select" resultMap = "BaseResultMap">
         select
         <include refid = "BaseColumnList" />
-        from legend_goods_log
+        from xyy_goods_log
         <include refid = "BaseWhereClause" />
         <include refid = "COMMON.ORDER_BY" />
         <include refid = "COMMON.LIMIT" />

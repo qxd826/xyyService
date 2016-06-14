@@ -26,4 +26,45 @@ public interface SupplyService {
      * @return
      */
     public Result addSupply(Supply supply);
+
+    /**
+     * 搜索供应商
+     *
+     * @param searchCon
+     *
+     * @return
+     */
+    public Result searchSupply(String searchCon);
+
+    /**
+     * 根据供应商id获取供应商详情
+     *
+     * @param supplyId
+     *
+     * @return
+     */
+    public Result supplyInfo(Long supplyId);
+
+    /**
+     * 根据供应商id删除供应商
+     *
+     * @param supplyId
+     *
+     * @return
+     */
+    public Result delById(Long supplyId);
+
+    /**
+     * 根据供应商编号获取商品出入库明细
+     * @param supplyId
+     * @return
+     */
+    public Result inOutDetail( Long  supplyId);
+
+    /**
+     * 供应商信息编辑
+     * @param supply
+     * @return
+     */
+    public Result edit( Supply  supply);
 }

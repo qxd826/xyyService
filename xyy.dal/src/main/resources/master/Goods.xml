@@ -31,6 +31,11 @@
                 <if test = "goodsNum != null">
                     and goods_num = #{goodsNum}
                 </if>
+                <if test = "searchCon != null">
+                    and (goods_name like CONCAT('%',#{searchCon},'%')
+                    or goods_code like CONCAT('%',#{searchCon},'%')
+                    )
+                </if>
             </trim>
         </where>
     </sql>

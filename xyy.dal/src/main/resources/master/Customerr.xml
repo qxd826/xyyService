@@ -26,6 +26,11 @@
                 <if test = "customerMobile != null">
                     and customer_mobile = #{customerMobile}
                 </if>
+                <if test = "searchCon != null">
+                    and (customer_name like CONCAT('%',#{searchCon},'%')
+                    or customer_mobile like CONCAT('%',#{searchCon},'%')
+                    )
+                </if>
             </trim>
         </where>
     </sql>
@@ -55,7 +60,7 @@
     <select id = "select" resultMap = "BaseResultMap">
         select
         <include refid = "BaseColumnList" />
-        from legend_customer
+        from xyy_customer
         <include refid = "BaseWhereClause" />
         <include refid = "COMMON.ORDER_BY" />
         <include refid = "COMMON.LIMIT" />

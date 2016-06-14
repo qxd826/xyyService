@@ -148,6 +148,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Result delUser(Long userId) {
+        User user = userDao.selectById(userId);
+        if(StringUtils.equalsIgnoreCase("1",user.getIsAdmin())){
+            return Result.wrapErrorResult("","管理员不能删除");
+        }
         if(userDao.deleteById(userId) > 0){
             return Result.wrapSuccessfulResult("删除成功");
         }else{

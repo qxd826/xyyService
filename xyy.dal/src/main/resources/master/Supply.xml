@@ -26,6 +26,11 @@
                 <if test = "supplyMobile != null">
                     and supply_mobile = #{supplyMobile}
                 </if>
+                <if test = "searchCon != null">
+                    and (supply_name like CONCAT('%',#{searchCon},'%')
+                    or supply_mobile like CONCAT('%',#{searchCon},'%')
+                    )
+                </if>
             </trim>
         </where>
     </sql>
@@ -47,7 +52,7 @@
     <!-- 查询总数 -->
     <select id = "selectCount" resultType = "java.lang.Integer">
         select count(id)
-        from legend_supply
+        from xyy_supply
         <include refid = "BaseWhereClause" />
     </select>
 
@@ -55,7 +60,7 @@
     <select id = "select" resultMap = "BaseResultMap">
         select
         <include refid = "BaseColumnList" />
-        from legend_supply
+        from xyy_supply
         <include refid = "BaseWhereClause" />
         <include refid = "COMMON.ORDER_BY" />
         <include refid = "COMMON.LIMIT" />
