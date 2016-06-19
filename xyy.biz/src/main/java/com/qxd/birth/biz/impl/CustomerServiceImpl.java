@@ -124,7 +124,7 @@ public class CustomerServiceImpl implements CustomerService {
         Map<String,Object> param = new HashMap<>();
         param.put("CustomerId",CustomerId);
         param.put("isDeleted","N");
-        param.put("actionType",0);
+        param.put("actionType",1);
         param.put("sorts",new String[]{"id desc"});
         List<GoodsLog> goodsLogs = goodsLogDao.select(param);
         if(null == goodsLogs){
