@@ -125,6 +125,7 @@ public class SupplyServiceImpl implements SupplyService {
         Map<String,Object> param = new HashMap<>();
         param.put("supplyId",supplyId);
         param.put("isDeleted","N");
+        param.put("action_type",1);
         param.put("sorts",new String[]{"id desc"});
         List<GoodsLog> goodsLogs = goodsLogDao.select(param);
         if(null == goodsLogs){
